@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_setting.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val PERMISSION_CODE = 1000;
+    private val PERMISSION_CODE = 1000
     private val IMAGE_CAPTURE_CODE = 1001
     var image_uri: Uri? = null
 
@@ -42,6 +42,11 @@ class MainActivity : AppCompatActivity() {
                 //system os is < marshmallow
                 openCamera()
             }
+        }
+
+        GalleryButton.setOnClickListener {
+            val intent = Intent(this@MainActivity, SettingActivity::class.java)
+            startActivity(intent)
         }
 
     }
@@ -78,9 +83,9 @@ class MainActivity : AppCompatActivity() {
         //called when image was captured from camera intent
         if(resultCode == Activity.RESULT_OK) {
             //set image captured to image view
-            imageView.setImageURI(image_uri)
-            //val intent = Intent(this, SettingActivity::class.java)
-            //startActivity(intent)
+            val intent = Intent(this@MainActivity, SettingActivity::class.java)
+            intent.putExtra("img", image_uri.toString())
+            startActivity(intent)
         }
     }
 }
