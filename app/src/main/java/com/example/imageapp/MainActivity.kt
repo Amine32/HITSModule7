@@ -69,8 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun pickImageFromGallery() {
         val requestCode = 0
-        val launchGalleryIntent = Intent(Intent.ACTION_PICK,
-            MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        val launchGalleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(launchGalleryIntent, requestCode)
         //val intent= Intent(Intent.ACTION_PICK)
         //intent.type="image/*"
@@ -123,24 +122,18 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("img", image_uri.toString())
             startActivity(intent)
         }
-        if (requestCode === 0 && resultCode === Activity.RESULT_OK ) {
-            val selectedImage: Uri? = data?.data
+        //adds obtained image from gallery to image view
+        else if (requestCode === 0 && resultCode === Activity.RESULT_OK ) {
+            image_uri = data?.data
             val intent = Intent(this, SettingActivity::class.java)
-            intent.putExtra("image_from_gallery",
-                selectedImage.toString())
+            intent.putExtra("img", image_uri.toString())
             startActivity(intent)
         }
     }
     fun getRealPathFromURI(contentURI: Uri?, context: Activity): String? {
-        val projection =
-            arrayOf(MediaStore.Images.Media.DATA)
-        val cursor = context.managedQuery(
-            contentURI, projection, null,
-            null, null
-        )
-            ?: return null
-        val column_index = cursor
-            .getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = context.managedQuery(contentURI, projection, null, null, null) ?: return null
+        val column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
         return if (cursor.moveToFirst()) {
             // cursor.close();
             cursor.getString(column_index)
