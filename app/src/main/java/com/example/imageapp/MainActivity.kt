@@ -1,22 +1,24 @@
 package com.example.imageapp
 
-import android.content.pm.PackageManager
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_main.*
 import android.Manifest
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Intent
-import android.graphics.Camera
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
+import android.os.Bundle
 import android.provider.MediaStore
-import android.widget.Button
+import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AnimationUtils
+import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_setting.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,9 +37,14 @@ class MainActivity : AppCompatActivity() {
 
         CameraButton.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED || checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED || checkSelfPermission(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_DENIED) {
                     //permission not enabled
-                    val permission = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    val permission = arrayOf(
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    )
 
                     requestPermissions(permission, PERMISSION_CODE)
 
@@ -67,9 +74,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
     private fun pickImageFromGallery() {
         val requestCode = 0
-        val launchGalleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        val launchGalleryIntent = Intent(
+            Intent.ACTION_PICK,
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        )
         startActivityForResult(launchGalleryIntent, requestCode)
         //val intent= Intent(Intent.ACTION_PICK)
         //intent.type="image/*"
@@ -87,25 +98,27 @@ class MainActivity : AppCompatActivity() {
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         //called when user presses ALLOW or DENY from Permission Request Popup
         when(requestCode) {
             PERMISSION_CODE -> {
-                if(grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //permission from popup was granted
                     openCamera()
-                }
-                else {
+                } else {
                     //permission from popup was denied
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
                 }
             }
-            PERMISSION_CODE_GALLERY->{
-                if(grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            PERMISSION_CODE_GALLERY -> {
+                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //permission from popup was granted
                     pickImageFromGallery()
-                }
-                else {
+                } else {
                     //permission from popup was denied
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
                 }
@@ -128,6 +141,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SettingActivity::class.java)
             intent.putExtra("img", image_uri.toString())
             startActivity(intent)
+
         }
     }
     fun getRealPathFromURI(contentURI: Uri?, context: Activity): String? {
@@ -141,3 +155,15 @@ class MainActivity : AppCompatActivity() {
         // cursor.close();
     }
 }
+
+
+/*
+rotatebtn.setOnClickListener{
+                var rotate= RotateAnimation(0F,90F,
+                    RotateAnimation.RELATIVE_TO_SELF,0.5f, RotateAnimation.RELATIVE_TO_SELF,0.5f)
+                rotate.fillAfter=true
+                rotate.duration=3600
+                rotate.interpolator= AccelerateDecelerateInterpolator()
+                imageView.startAnimation(rotate)
+            }
+ */

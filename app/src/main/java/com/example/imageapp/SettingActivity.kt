@@ -3,6 +3,8 @@ package com.example.imageapp
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,7 +19,17 @@ class SettingActivity : AppCompatActivity() {
 
         var img = Uri.parse(intent.getStringExtra("img"))
         imageView.setImageURI(img)
+
+
     }
+
+    override fun onStart() {
+        super.onStart()
+        rotatebtn.setOnClickListener{
+            imageView.rotation=imageView.rotation+ 90F
+        }
+    }
+
 }
 
 

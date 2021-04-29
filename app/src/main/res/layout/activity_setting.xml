@@ -32,6 +32,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/rotatebtn"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@color/design_default_color_primary"
