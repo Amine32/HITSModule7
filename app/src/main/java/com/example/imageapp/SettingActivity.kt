@@ -3,6 +3,7 @@ package com.example.imageapp
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.RotateAnimation
 import android.widget.ImageView
@@ -13,6 +14,8 @@ import java.io.InputStream
 
 
 class SettingActivity : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
@@ -26,6 +29,10 @@ class SettingActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         rotatebtn.setOnClickListener{
+            rotateiconbtn.visibility= View.VISIBLE
+
+        }
+        rotateiconbtn.setOnClickListener{
             imageView.rotation=imageView.rotation+ 90F
         }
     }
