@@ -7,26 +7,34 @@
     android:orientation="vertical"
     tools:context=".SettingActivity">
 
+    <FrameLayout
+        android:id="@+id/flFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="60dp"
         android:adjustViewBounds="true"
         android:scaleType="center"
         app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp"
         tools:srcCompat="@tools:sample/avatars" />
-
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/optionsscrollview">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
 
 
         <LinearLayout
@@ -53,6 +61,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@color/design_default_color_primary"
+                android:onClick="resizeImage"
                 android:text="Scale"
                 android:textColor="@color/design_default_color_secondary" />
 
@@ -100,37 +109,6 @@
 
 
         </LinearLayout>
-    </HorizontalScrollView>
-
-    <HorizontalScrollView
-        android:id="@+id/optionsscrollview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/horizontalScrollView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
-
-
-    <LinearLayout
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-        <Button
-            android:id="@+id/rotateiconbtn"
-            android:visibility="invisible"
-            android:layout_margin="10dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:drawableTop="@drawable/ic_baseline_rotate_right_24"
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/design_default_color_secondary" />
-
-
-    </LinearLayout>
     </HorizontalScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

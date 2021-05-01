@@ -1,41 +1,56 @@
 package com.example.imageapp
 
-import android.graphics.BitmapFactory
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.RotateAnimation
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_setting.*
-import java.io.InputStream
+import kotlinx.android.synthetic.main.fragment_rotate.*
 
 
 class SettingActivity : AppCompatActivity() {
 
+    var bitmap: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
 
         var img = Uri.parse(intent.getStringExtra("img"))
-        imageView.setImageURI(img)
+        bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, img)
+        imageView.setImageBitmap(bitmap)
 
+        val rotateFragment = RotateFragment()
 
-    }
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment, rotateFragment)
+            commit()
+        }
 
-    override fun onStart() {
-        super.onStart()
         rotatebtn.setOnClickListener{
-            rotateiconbtn.visibility= View.VISIBLE
-
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.flFragment, rotateFragment)
+                commit()
+            }
         }
-        rotateiconbtn.setOnClickListener{
-            imageView.rotation=imageView.rotation+ 90F
+
+    }
+
+    fun resizeImage(view: View) {
+        val resized = Bitmap.createScaledBitmap(bitmap!!, 400,400,true)
+        imageView.setImageBitmap(resized)
+    }
+
+    fun rotateImage(view: View) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+            imageView.rotation = imageView.rotation + 90F
         }
     }
+
+
 
 }
 
