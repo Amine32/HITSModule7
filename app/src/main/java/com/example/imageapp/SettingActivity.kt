@@ -25,10 +25,7 @@ class SettingActivity : AppCompatActivity() {
 
         val rotateFragment = RotateFragment()
 
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment, rotateFragment)
-            commit()
-        }
+
 
         rotatebtn.setOnClickListener{
             supportFragmentManager.beginTransaction().apply {

@@ -26,13 +26,14 @@
 
 
             <Button
-                android:id="@+id/rotateiconbtn"
+                android:drawableTop="@drawable/ic_baseline_rotate_right_24"
                 android:onClick="rotateImage"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="10dp"
                 android:background="?android:attr/selectableItemBackground"
-                android:textColor="@color/design_default_color_secondary" />
+                android:textColor="@color/design_default_color_secondary"
+                tools:ignore="OnClick" />
 
 
         </LinearLayout>
