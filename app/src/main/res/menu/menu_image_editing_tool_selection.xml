@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/rotateFragSelect"
+        android:icon="@android:drawable/ic_menu_rotate"
+        android:title="Rotate" />
+
+    <item
+        android:id="@+id/filterFragSelect"
+        android:icon="@android:drawable/ic_menu_slideshow"
+        android:title="Filter" />
+
+    <item
+        android:id="@+id/retouchFragSelect"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="Retouch" />
+</menu>

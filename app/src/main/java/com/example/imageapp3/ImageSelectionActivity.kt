@@ -1,4 +1,4 @@
-package com.example.imageapp
+package com.example.imageapp3
 
 import android.Manifest
 import android.app.Activity
@@ -7,35 +7,37 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AnimationUtils
-import android.view.animation.RotateAnimation
-import android.widget.ImageView
+import android.view.Window
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_setting.*
+import androidx.viewbinding.ViewBinding
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.imageapp3.databinding.ActivityImageSelectionBinding
 
+class ImageSelectionActivity : AppCompatActivity() {
+    private val binding by viewBinding(ActivityImageSelectionBinding::bind, R.id.imageSelectionLayout)
+    private val PERMISSION_DENIED_MESSAGE: String = "Permission denied"
 
-class MainActivity : AppCompatActivity() {
+    private var imageUri: Uri? = null
 
-    private val PERMISSION_CODE = 1000
-    private val IMAGE_CAPTURE_CODE = 1001
-    var image_uri: Uri? = null
-    companion object{
+    companion object {
+        private val PERMISSION_CODE = 1000
+        private val IMAGE_CAPTURE_CODE = 1001
         private val IMAGE_PICK_CODE=1002
         private val PERMISSION_CODE_GALLERY=1003
-
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
+        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
+        getSupportActionBar()?.hide(); // hide the title bar
 
-        CameraButton.setOnClickListener {
+        setContentView(R.layout.activity_image_selection)
+
+        binding.CameraButton.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED || checkSelfPermission(
                         Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -58,8 +60,7 @@ class MainActivity : AppCompatActivity() {
                 openCamera()
             }
         }
-
-        GalleryButton.setOnClickListener {
+        binding.GalleryButton.setOnClickListener {
             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
                 if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_DENIED){
                     val permissions= arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -71,9 +72,7 @@ class MainActivity : AppCompatActivity() {
                 pickImageFromGallery();
             }
         }
-
     }
-
 
     private fun pickImageFromGallery() {
         val requestCode = 0
@@ -91,10 +90,10 @@ class MainActivity : AppCompatActivity() {
         val values = ContentValues()
         values.put(MediaStore.Images.Media.TITLE, "New Picture")
         values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
-        image_uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+        imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
         //camera intent
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE)
     }
 
@@ -111,7 +110,7 @@ class MainActivity : AppCompatActivity() {
                     openCamera()
                 } else {
                     //permission from popup was denied
-                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, PERMISSION_DENIED_MESSAGE, Toast.LENGTH_SHORT).show()
                 }
             }
             PERMISSION_CODE_GALLERY -> {
@@ -120,10 +119,11 @@ class MainActivity : AppCompatActivity() {
                     pickImageFromGallery()
                 } else {
                     //permission from popup was denied
-                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, PERMISSION_DENIED_MESSAGE, Toast.LENGTH_SHORT).show()
                 }
 
-            }            }
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -131,39 +131,17 @@ class MainActivity : AppCompatActivity() {
         //called when image was captured from camera intent
         if(resultCode == Activity.RESULT_OK && requestCode==IMAGE_CAPTURE_CODE) {
             //set image captured to image view
-            val intent = Intent(this@MainActivity, SettingActivity::class.java)
-            intent.putExtra("img", image_uri.toString())
+            val intent = Intent(this, ImageEditingActivity::class.java)
+            intent.putExtra("img", imageUri.toString())
             startActivity(intent)
         }
         //adds obtained image from gallery to image view
-        else if (requestCode === 0 && resultCode === Activity.RESULT_OK ) {
-            image_uri = data?.data
-            val intent = Intent(this, SettingActivity::class.java)
-            intent.putExtra("img", image_uri.toString())
+        else if (requestCode == 0 && resultCode == Activity.RESULT_OK ) {
+            imageUri = data?.data
+            val intent = Intent(this, ImageEditingActivity::class.java)
+            intent.putExtra("img", imageUri.toString())
             startActivity(intent)
 
         }
     }
-    fun getRealPathFromURI(contentURI: Uri?, context: Activity): String? {
-        val projection = arrayOf(MediaStore.Images.Media.DATA)
-        val cursor = context.managedQuery(contentURI, projection, null, null, null) ?: return null
-        val column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-        return if (cursor.moveToFirst()) {
-            // cursor.close();
-            cursor.getString(column_index)
-        } else null
-        // cursor.close();
-    }
 }
-
-
-/*
-rotatebtn.setOnClickListener{
-                var rotate= RotateAnimation(0F,90F,
-                    RotateAnimation.RELATIVE_TO_SELF,0.5f, RotateAnimation.RELATIVE_TO_SELF,0.5f)
-                rotate.fillAfter=true
-                rotate.duration=3600
-                rotate.interpolator= AccelerateDecelerateInterpolator()
-                imageView.startAnimation(rotate)
-            }
- */
