@@ -52,6 +52,10 @@ class ImageEditingActivity : AppCompatActivity() {
                     selectScreen(RetouchFragment.TAG, RetouchFragment.newInstance())
                     true
                 }
+                R.id.scaleFragSelect-> {
+                    selectScreen(ScaleFragment.TAG, ScaleFragment.newInstance())
+                    true
+                }
                 else -> false
             }
         }
@@ -71,7 +75,7 @@ class ImageEditingActivity : AppCompatActivity() {
             }
 
             if (target == null) {
-                add(R.id.fragmentContainer, fragment, tag)
+                replace(R.id.fragmentContainer, fragment, tag)
             } else {
                 show(target)
             }
