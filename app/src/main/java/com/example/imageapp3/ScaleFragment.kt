@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.imageapp3.databinding.FragmentScaleBinding
 
@@ -28,16 +29,35 @@ class ScaleFragment : Fragment(R.layout.fragment_scale) {
             val bm = (ImageEditingActivity.imageView?.drawable as BitmapDrawable).bitmap
             val width = bm.width
             val height = bm.height
-            // CREATE A MATRIX FOR THE MANIPULATION
-            val matrix = Matrix()
-            // RESIZE THE BIT MAP
-            matrix.postScale(coef, coef)
 
-            // "RECREATE" THE NEW BITMAP
-            val resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false)
-            bm.recycle()
+            //display new width and height for testing purpose
+            binding.testHeight.text = (height*coef).toString()
+            binding.testWidth.text = (width*coef).toString()
 
-            ImageEditingActivity.imageView?.setImageBitmap(resizedBitmap)
+            //gate keeping memory leak
+            if(height * coef <= 5750 && width * coef >= 0.5) {
+                // CREATE A MATRIX FOR THE MANIPULATION
+                val matrix = Matrix()
+                // RESIZE THE BIT MAP
+                matrix.postScale(coef, coef)
+
+                // "RECREATE" THE NEW BITMAP
+                val resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false)
+                bm.recycle()
+
+                ImageEditingActivity.imageView?.setImageBitmap(resizedBitmap)
+            }
+            //show error message
+            else {
+                if(coef > 1) {
+                    val MEMORY_EXCEEDED: String = "Choose scaling coefficient smaller than " + (5750 / height)
+                    Toast.makeText(activity, MEMORY_EXCEEDED, Toast.LENGTH_LONG).show()
+                }
+                else {
+                    val MEMORY_EXCEEDED: String = "Choose scaling coefficient bigger than $coef"
+                    Toast.makeText(activity, MEMORY_EXCEEDED, Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 }

@@ -42,6 +42,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:contentDescription="Photo from camera or gallery"
+        android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/fragmentContainer"
         app:layout_constraintEnd_toEndOf="parent"
