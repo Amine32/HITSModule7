@@ -22,11 +22,15 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         super.onViewCreated(view, savedInstanceState)
 
 
-//        binding.filterRedBtn.setOnClickListener {
-//            applyFilter(ColorMatrices.FullRed)
-//        }
-
-
+        binding.invertedFilterBtn.setOnClickListener {
+            applyFilter(ColorMatrices.Inverted)
+        }
+        binding.grayFilterBtn.setOnClickListener {
+            applyFilter(ColorMatrices.BlackAndWhite)
+        }
+        binding.agbrFilterBtn.setOnClickListener {
+            applyFilter(ColorMatrices.AGBR)
+        }
     }
 
     private fun applyFilter(colorMatrix: ColorMatrices) {

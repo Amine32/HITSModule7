@@ -4,11 +4,11 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 object Rotator {
-    fun RotateX(figure: Figure, rad: Float) {
+    fun RotateX(rad: Float) {
         val sin = sin(rad)
         val cos = cos(rad)
 
-        for (node in figure.nodes) {
+        for (node in Cube.nodes) {
             val newY = node.y * cos - node.z * sin
             val newZ = node.z * cos + node.y * sin
 
@@ -17,11 +17,11 @@ object Rotator {
         }
     }
 
-    fun RotateY(figure: Figure, rad: Float) {
+    fun RotateY(rad: Float) {
         val sin = sin(rad)
         val cos = cos(rad)
 
-        for (node in figure.nodes) {
+        for (node in Cube.nodes) {
             val newX = node.x * cos - node.z * sin
             val newZ = node.z * cos + node.x * sin
 
@@ -30,11 +30,11 @@ object Rotator {
         }
     }
 
-    fun RotateZ(figure: Figure, rad: Float) {
+    fun RotateZ(rad: Float) {
         val sin = sin(rad)
         val cos = cos(rad)
 
-        for (node in figure.nodes) {
+        for (node in Cube.nodes) {
             val newX = node.x * cos - node.y * sin
             val newY = node.y * cos + node.x * sin
 

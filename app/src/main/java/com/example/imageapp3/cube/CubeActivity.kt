@@ -16,6 +16,10 @@ import kotlin.properties.Delegates
 
 class CubeActivity : AppCompatActivity() {
 
+    companion object {
+        val paint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -31,15 +35,12 @@ class CubeActivity : AppCompatActivity() {
         private var curX by Delegates.notNull<Float>()
         private var curY by Delegates.notNull<Float>()
 
-        private val figure = Cube
         private var canvas by Delegates.notNull<Canvas>()
-
-        private val paint: Paint = Paint(Paint.ANTI_ALIAS_FLAG)
 
         override fun onTouchEvent(event: MotionEvent): Boolean {
             paint.style = Paint.Style.STROKE
-            paint.strokeWidth = 3F
-            paint.color = Color.RED
+            paint.strokeWidth = 10F
+            paint.color = Color.CYAN
 
             when(event.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -47,13 +48,13 @@ class CubeActivity : AppCompatActivity() {
                     curY = event.y
                 }
                 MotionEvent.ACTION_MOVE -> {
-                    Rotator.RotateY(figure, -(event.x - curX) / 200)
-                    Rotator.RotateX(figure, -(event.y - curY) / 200)
+                    Rotator.RotateY(-(event.x - curX) / 200)
+                    Rotator.RotateX(-(event.y - curY) / 200)
 
                     canvas = holder.lockCanvas()
                     canvas.drawColor(Color.WHITE)
                     canvas.translate((canvas.width / 2).toFloat(), (canvas.height / 2).toFloat())
-                    figure.draw(canvas)
+                    Cube.draw(canvas)
                     holder.unlockCanvasAndPost(canvas)
 
                     curX = event.x
