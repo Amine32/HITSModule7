@@ -42,11 +42,20 @@ class ScaleFragment : Fragment(R.layout.fragment_scale) {
                 matrix.postScale(coef, coef)
 
                 // "RECREATE" THE NEW BITMAP
-                val resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false)
-                bm.recycle()
+                var resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false)
 
+                //bilinear scaling
+                if (coef > 1) {
+                    resizedBitmap = bm.biscale(bm, resizedBitmap)
+                }
+                //trilinear scaling
+                else{
+
+                }
+                bm.recycle()
                 ImageEditingActivity.imageView?.setImageBitmap(resizedBitmap)
             }
+
             //show error message
             else {
                 if(coef > 1) {
@@ -61,3 +70,41 @@ class ScaleFragment : Fragment(R.layout.fragment_scale) {
         }
     }
 }
+
+operator fun Int.get(n: Int) = (this shr (n * 8)) and 0xFF
+
+fun lerp(s: Float, e: Float, t: Float) = s + (e - s) * t
+
+fun blerp(c00: Float, c10: Float, c01: Float, c11: Float, tx:Float, ty: Float) =
+    lerp(lerp(c00, c10, tx), lerp(c01, c11, tx), ty)
+
+fun Bitmap.biscale(bm: Bitmap, newImage: Bitmap): Bitmap {
+    for(x in 0 until newImage.width) {
+        for(y in 0 until newImage.height) {
+            val gx = x.toFloat() / (newImage.width) * (bm.width - 1)
+            val gy = y.toFloat() / (newImage.height) * (bm.height - 1)
+            val gxi = gx.toInt()
+            val gyi = gy.toInt()
+            var rgb = 0
+            val c00 = bm.getPixel(gxi, gyi)
+            val c10 = bm.getPixel(gxi + 1, gyi)
+            val c01 = bm.getPixel(gxi, gyi + 1)
+            val c11 = bm.getPixel(gxi + 1, gyi + 1)
+            for(i in 0..3) {
+                val b00 = c00[i].toFloat()
+                val b10 = c10[i].toFloat()
+                val b01 = c01[i].toFloat()
+                val b11 = c11[i].toFloat()
+                val ble = blerp(b00, b10, b01, b11, gx - gxi, gy - gyi).toInt() shl (8 * i)
+                rgb = rgb or ble
+            }
+            newImage.setPixel(x, y, rgb)
+        }
+    }
+    return newImage
+}
+
+fun Bitmap.triscale(bm: Bitmap, newImage: Bitmap) {
+
+}
+
