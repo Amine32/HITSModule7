@@ -13,9 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ImageApp3">
-        <activity android:name=".SplineActivity"></activity>
-        <activity android:name=".CubeActivity" />
-        <activity android:name=".ImageEditingActivity" />
+        <activity android:name=".SplineActivity" />
+        <activity android:name=".cube.CubeActivity" />
+        <activity android:name=".imageEditing.ImageEditingActivity" />
         <activity android:name=".ImageSelectionActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

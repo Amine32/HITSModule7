@@ -5,7 +5,7 @@
     android:id="@+id/imageEditingLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ImageEditingActivity">
+    tools:context=".imageEditing.ImageEditingActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/imageEditingBottomNavView"

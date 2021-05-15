@@ -1,12 +1,11 @@
 package com.example.imageapp3
 
-import android.app.ProgressDialog.show
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
-import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.imageapp3.cube.CubeActivity
 import com.example.imageapp3.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

@@ -1,15 +1,14 @@
-package com.example.imageapp3
+package com.example.imageapp3.imageEditing
 
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.imageapp3.R
 import com.example.imageapp3.databinding.FragmentScaleBinding
 
 class ScaleFragment : Fragment(R.layout.fragment_scale) {

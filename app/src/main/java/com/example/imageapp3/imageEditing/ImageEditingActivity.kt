@@ -1,15 +1,16 @@
-package com.example.imageapp3
+package com.example.imageapp3.imageEditing
 
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.Window
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.imageapp3.R
 import com.example.imageapp3.databinding.ActivityImageEditingBinding
 
 class ImageEditingActivity : AppCompatActivity() {
@@ -20,22 +21,37 @@ class ImageEditingActivity : AppCompatActivity() {
         var imageUri: Uri? = null
         var bitmap: Bitmap? = null
         var imageView: ImageView? = null
+        //var bitmapOptions = BitmapFactory.Options()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
-        getSupportActionBar()?.hide(); // hide the title bar
+        supportActionBar?.hide(); // hide the title bar
         setContentView(R.layout.activity_image_editing)
 
-        imageUri = Uri.parse(intent.getStringExtra("img"))
-        bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
+        //bitmapOptions.inMutable = true
+
         imageView = binding.uploadedPhotoImageView
-        imageView?.setImageBitmap(bitmap)
+        imageUri = Uri.parse(intent.getStringExtra("img"))
+        imageView?.setImageURI(imageUri)
+        bitmap = imageView?.drawable?.let {
+            //val width = it.intrinsicWidth.toInt()
+            //val height = it.intrinsicHeight.toInt()
+            ////////////////////
+            it.toBitmap()
+            ///////////////////
+        }
+        bitmap = bitmap?.let { it.copy(Bitmap.Config.ARGB_8888, true) }
+
+
+        //bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
+
+
 
         bitmap?.let {
             pixelArray = IntArray(it.width * it.height)
-            it.getPixels(pixelArray, 0, it.width, 0,0, it.width, it.height)
+            it.getPixels(pixelArray, 0, it.width, 0, 0, it.width, it.height)
         }
 
         binding.imageEditingBottomNavView.setOnNavigationItemSelectedListener { item ->
@@ -48,12 +64,16 @@ class ImageEditingActivity : AppCompatActivity() {
                     selectScreen(FilterFragment.TAG, FilterFragment.newInstance())
                     true
                 }
-                R.id.retouchFragSelect-> {
+                R.id.retouchFragSelect -> {
                     selectScreen(RetouchFragment.TAG, RetouchFragment.newInstance())
                     true
                 }
-                R.id.scaleFragSelect-> {
+                R.id.scaleFragSelect -> {
                     selectScreen(ScaleFragment.TAG, ScaleFragment.newInstance())
+                    true
+                }
+                R.id.sharpeningFragSelect -> {
+                    selectScreen(SharpeningFragment.TAG, SharpeningFragment.newInstance())
                     true
                 }
                 else -> false
@@ -75,7 +95,7 @@ class ImageEditingActivity : AppCompatActivity() {
             }
 
             if (target == null) {
-                replace(R.id.fragmentContainer, fragment, tag)
+                add(R.id.fragmentContainer, fragment, tag)
             } else {
                 show(target)
             }
