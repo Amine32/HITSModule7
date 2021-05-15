@@ -95,7 +95,7 @@ class ImageEditingActivity : AppCompatActivity() {
             }
 
             if (target == null) {
-                add(R.id.fragmentContainer, fragment, tag)
+                replace(R.id.fragmentContainer, fragment, tag)
             } else {
                 show(target)
             }
