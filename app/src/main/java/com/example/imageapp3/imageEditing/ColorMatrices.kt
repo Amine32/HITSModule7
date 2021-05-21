@@ -18,5 +18,11 @@ enum class ColorMatrices(val matrix: FloatArray) {
         0F, 0F, 1F, 0F, 0F,
         0F, 0F, 0F, 1F, 0F,
         0F, 1F, 0F, 0F, 0F,
+    )),
+    Sepia(floatArrayOf(
+        1F, 0F, 0F, 0F, 0F,
+        0F, 0.33F, 0.33F, 0.33F, 30F,
+        0F, 0.33F, 0.33F, 0.33F, 15F,
+        0F, 0.33F, 0.33F, 0.33F, 0F,
     ))
 }

@@ -1,73 +1,131 @@
 package com.example.imageapp3.cube
 
 import android.graphics.Canvas
+import android.graphics.Paint
 import android.graphics.Path
 
 class Face(var nodes: Array<Node>) {
-    var numNodes: Array<Node> = setNumNodes()
-
-    private val a = (nodes[1].y * nodes[2].z - nodes[1].z * nodes[2].y) +
+    private var a = (nodes[1].y * nodes[2].z - nodes[1].z * nodes[2].y) +
                     (nodes[0].z * nodes[2].y - nodes[0].y * nodes[2].z) +
                     (nodes[0].y * nodes[1].z - nodes[0].z * nodes[1].y)
 
-    private val b = (nodes[1].z * nodes[2].x - nodes[1].x * nodes[2].z) +
+    private var b = (nodes[1].z * nodes[2].x - nodes[1].x * nodes[2].z) +
                     (nodes[0].x * nodes[2].z - nodes[0].z * nodes[2].x) +
                     (nodes[0].z * nodes[1].x - nodes[0].x * nodes[1].z)
 
-    private val c = (nodes[1].x * nodes[2].y - nodes[1].y * nodes[2].x) +
+    private var c = (nodes[1].x * nodes[2].y - nodes[1].y * nodes[2].x) +
                     (nodes[0].y * nodes[2].x - nodes[0].x * nodes[2].y) +
                     (nodes[0].x * nodes[1].y - nodes[0].y * nodes[1].x)
 
-    private val d = -(a * nodes[0].x + b * nodes[0].y + c * nodes[0].z)
+    private var d = -(a * nodes[0].x + b * nodes[0].y + c * nodes[0].z)
 
-    private fun setNumNodes(): Array<Node> {
-        val x1 = nodes[0].x
-        val x2 = nodes[3].x
+    fun updatePlaneValues() {
+        a = (nodes[1].y * nodes[2].z - nodes[1].z * nodes[2].y) +
+            (nodes[0].z * nodes[2].y - nodes[0].y * nodes[2].z) +
+            (nodes[0].y * nodes[1].z - nodes[0].z * nodes[1].y)
 
-        val y1 = nodes[0].y
-        val y2 = nodes[1].y
+        b = (nodes[1].z * nodes[2].x - nodes[1].x * nodes[2].z) +
+            (nodes[0].x * nodes[2].z - nodes[0].z * nodes[2].x) +
+            (nodes[0].z * nodes[1].x - nodes[0].x * nodes[1].z)
 
-        var array: Array<Node> = arrayOf()
+        c = (nodes[1].x * nodes[2].y - nodes[1].y * nodes[2].x) +
+            (nodes[0].y * nodes[2].x - nodes[0].x * nodes[2].y) +
+            (nodes[0].x * nodes[1].y - nodes[0].y * nodes[1].x)
 
-        array = array.plus(getNodeFromXY(0.3F * x2 + 0.7F * x1, 0.8F * y2 + 0.2F * y1))
-        array = array.plus(getNodeFromXY(0.7F * x2 + 0.3F * x1, 0.8F * y2 + 0.2F * y1))
-        array = array.plus(getNodeFromXY(0.3F * x2 + 0.7F * x1, 0.5F * y2 + 0.5F * y1))
-        array = array.plus(getNodeFromXY(0.7F * x2 + 0.3F * x1, 0.5F * y2 + 0.5F * y1))
-        array = array.plus(getNodeFromXY(0.3F * x2 + 0.7F * x1, 0.2F * y2 + 0.8F * y1))
-        array = array.plus(getNodeFromXY(0.7F * x2 + 0.3F * x1, 0.2F * y2 + 0.8F * y1))
-
-        return array
+        d = -(a * nodes[0].x + b * nodes[0].y + c * nodes[0].z)
     }
 
-    private fun getNodeFromXY(x: Float, y: Float): Node {
-        val z: Float = -(a * x + b * y + d) / c
-        return Node(x, y, z)
-    }
-
-    fun draw(canvas: Canvas, n: Int) {
+    fun draw(canvas: Canvas, paint: Paint, n: Int) {
         val path = Path().apply {
-            //fillType = Path.FillType.EVEN_ODD
             rMoveTo(nodes[3].x, nodes[3].y)
         }
         for (node in nodes) {
             path.lineTo(node.x, node.y)
         }
         path.close()
-        canvas.drawPath(path, CubeActivity.paint)
-        drawNumber(canvas, n)
+        canvas.drawPath(path, paint)
+        drawNumber(canvas, paint, n)
     }
 
-    private fun drawNumber(canvas: Canvas, n: Int) {
+    private fun drawNumber(canvas: Canvas, paint: Paint, n: Int) {
         val path = Path()
+        val center = Node(
+            (nodes[0].x + nodes[1].x + nodes[2].x + nodes[3].x) / 4,
+            (nodes[0].y + nodes[1].y + nodes[2].y + nodes[3].y) / 4,
+            (nodes[0].z + nodes[1].z + nodes[2].z + nodes[3].z) / 4,
+            true
+        )
+        val horVector = Vector(
+            nodes[3].x - nodes[0].x,
+            nodes[3].y - nodes[0].y,
+            nodes[3].z - nodes[0].z,
+        )
+        val vertVector = Vector(
+            nodes[1].x - nodes[0].x,
+            nodes[1].y - nodes[0].y,
+            nodes[1].z - nodes[0].z,
+        )
         when(n) {
             1 -> {
-                path.rMoveTo(numNodes[1].x, numNodes[1].y)
-                path.lineTo(numNodes[3].x, numNodes[3].y)
-                path.lineTo(numNodes[5].x, numNodes[5].y)
+                path.moveTo(center.x, center.y)
+                path.rLineTo(vertVector.x / 4, vertVector.y / 4)
+                path.rLineTo(-vertVector.x / 2, -vertVector.y / 2)
+            }
+            2 -> {
+                path.moveTo(center.x, center.y)
+                path.rLineTo(-horVector.x / 4, -horVector.y / 4)
+                path.rLineTo(vertVector.x / 4, vertVector.y / 4)
+                path.rLineTo(horVector.x / 2, horVector.y / 2)
+                path.moveTo(center.x, center.y)
+                path.rLineTo(horVector.x / 4, horVector.y / 4)
+                path.rLineTo(-vertVector.x / 4, -vertVector.y / 4)
+                path.rLineTo(-horVector.x / 2, -horVector.y / 2)
+            }
+            3 -> {
+                path.moveTo(center.x, center.y)
+                path.rLineTo(horVector.x / 4, horVector.y / 4)
+                path.rLineTo(-horVector.x / 2, -horVector.y / 2)
+                path.rLineTo(vertVector.x / 4, vertVector.y / 4)
+                path.rLineTo(horVector.x / 2, horVector.y / 2)
+                path.rLineTo(-horVector.x / 2, -horVector.y / 2)
+                path.rLineTo(-vertVector.x / 2, -vertVector.y / 2)
+                path.rLineTo(horVector.x / 2, horVector.y / 2)
+                path.rLineTo(-horVector.x / 2, -horVector.y / 2)
+            }
+            4 -> {
+                path.moveTo(center.x, center.y)
+                path.rLineTo(-horVector.x / 4, -horVector.y / 4)
+                path.rLineTo(-vertVector.x / 4, -vertVector.y / 4)
+                path.moveTo(center.x, center.y)
+                path.rLineTo(horVector.x / 4, horVector.y / 4)
+                path.rLineTo(-vertVector.x / 4, -vertVector.y / 4)
+                path.rLineTo(vertVector.x / 2, vertVector.y / 2)
+            }
+            5 -> {
+                path.moveTo(center.x, center.y)
+                path.rLineTo(horVector.x / 4, horVector.y / 4)
+                path.rLineTo(vertVector.x / 4, vertVector.y / 4)
+                path.rLineTo(-horVector.x / 2, -horVector.y / 2)
+                path.moveTo(center.x, center.y)
+                path.rLineTo(-horVector.x / 4, -horVector.y / 4)
+                path.rLineTo(-vertVector.x / 4, -vertVector.y / 4)
+                path.rLineTo(horVector.x / 2, horVector.y / 2)
+            }
+            6 -> {
+                path.moveTo(center.x, center.y)
+                path.rLineTo(horVector.x / 4, horVector.y / 4)
+                path.rLineTo(-horVector.x / 2, -horVector.y / 2)
+                path.rLineTo(vertVector.x / 4, vertVector.y / 4)
+                path.rLineTo(horVector.x / 2, horVector.y / 2)
+                path.rLineTo(-horVector.x / 2, -horVector.y / 2)
+                path.rLineTo(-vertVector.x / 2, -vertVector.y / 2)
+                path.rLineTo(horVector.x / 2, horVector.y / 2)
+                path.rLineTo(vertVector.x / 4, vertVector.y / 4)
             }
         }
+        path.moveTo(center.x, center.y)
         path.close()
-        canvas.drawPath(path, CubeActivity.paint)
+        canvas.drawPath(path, paint)
     }
 
     fun isVisible(): Boolean {

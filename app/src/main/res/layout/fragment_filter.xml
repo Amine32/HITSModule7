@@ -7,23 +7,50 @@
     android:layout_height="match_parent"
     android:layout_weight="1"
     android:orientation="vertical"
-    tools:context=".imageEditing.FilterFragment" >
+    tools:context=".imageEditing.FilterFragment">
 
-    <Button
-        android:id="@+id/invertedFilterBtn"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Inverted" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/grayFilterBtn"
+        <Button
+            android:id="@+id/invertedFilterBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/invertedFilterString"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/grayFilterBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/grayFilterString"
+            tools:ignore="ButtonStyle" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Gray" />
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/agbrFilterBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="AGBR" />
+        <Button
+            android:id="@+id/agbrFilterBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/agbrFilterString"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/sepiaFilterBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/sepiaFilterString"
+            tools:ignore="ButtonStyle" />
+    </LinearLayout>
+
 </LinearLayout>
