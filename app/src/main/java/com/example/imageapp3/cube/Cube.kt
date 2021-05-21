@@ -1,52 +1,20 @@
 package com.example.imageapp3.cube
 
 import android.graphics.Canvas
-import kotlin.math.sqrt
+import android.graphics.Paint
+import kotlin.math.cos
+import kotlin.math.sin
 
 object Cube {
-    private const val distFromCenter = 250f
-    private val cubeDiagonal = distFromCenter * sqrt(3F) / 2
     var nodes = arrayOf(
-        Node(
-            -cubeDiagonal,
-            cubeDiagonal,
-            cubeDiagonal
-        ),
-        Node(
-            -cubeDiagonal,
-            -cubeDiagonal,
-            cubeDiagonal
-        ),
-        Node(
-            cubeDiagonal,
-            -cubeDiagonal,
-            cubeDiagonal
-        ),
-        Node(
-            cubeDiagonal,
-            cubeDiagonal,
-            cubeDiagonal
-        ),
-        Node(
-            -cubeDiagonal,
-            cubeDiagonal,
-            -cubeDiagonal
-        ),
-        Node(
-            -cubeDiagonal,
-            -cubeDiagonal,
-            -cubeDiagonal
-        ),
-        Node(
-            cubeDiagonal,
-            -cubeDiagonal,
-            -cubeDiagonal
-        ),
-        Node(
-            cubeDiagonal,
-            cubeDiagonal,
-            -cubeDiagonal
-        ),
+        Node(-1F, 1F, 1F),
+        Node(-1F, -1F, 1F),
+        Node(1F, -1F, 1F),
+        Node(1F, 1F, 1F),
+        Node(-1F, 1F, -1F),
+        Node(-1F, -1F, -1F),
+        Node(1F, -1F, -1F),
+        Node(1F, 1F, -1F),
     )
     var faces = arrayOf(
         Face(arrayOf(nodes[0], nodes[1], nodes[2], nodes[3])),
@@ -57,13 +25,39 @@ object Cube {
         Face(arrayOf(nodes[0], nodes[3], nodes[7], nodes[4])),
     )
 
-    fun draw(canvas: Canvas) {
+    fun draw(canvas: Canvas, paint: Paint) {
         var numCounter = 1  
-        for (face in this.faces) {
+        for (face in faces) {
+            face.updatePlaneValues()
             if (face.isVisible()) {
-                face.draw(canvas, numCounter)
+                face.draw(canvas, paint, numCounter)
             }
             numCounter++
+        }
+    }
+    fun rotateX(rad: Float) {
+        val sin = sin(rad)
+        val cos = cos(rad)
+
+        for (node in nodes) {
+            val newY = node.y * cos - node.z * sin
+            val newZ = node.z * cos + node.y * sin
+
+            node.y = newY
+            node.z = newZ
+        }
+    }
+
+    fun rotateY(rad: Float) {
+        val sin = sin(rad)
+        val cos = cos(rad)
+
+        for (node in nodes) {
+            val newX = node.x * cos - node.z * sin
+            val newZ = node.z * cos + node.x * sin
+
+            node.x = newX
+            node.z = newZ
         }
     }
 }

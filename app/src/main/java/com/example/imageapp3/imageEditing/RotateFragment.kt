@@ -11,7 +11,7 @@ class RotateFragment : Fragment(R.layout.fragment_rotate) {
     private val binding by viewBinding(FragmentRotateBinding::bind, R.id.frameLayout)
 
     companion object {
-        val TAG = RotateFragment::class.java.simpleName
+        val TAG: String = RotateFragment::class.java.simpleName
 
         fun newInstance() = RotateFragment()
 

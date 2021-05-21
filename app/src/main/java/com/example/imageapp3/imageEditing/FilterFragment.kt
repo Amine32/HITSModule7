@@ -7,13 +7,14 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.imageapp3.R
 import com.example.imageapp3.databinding.FragmentFilterBinding
+import kotlin.math.min
 
 
 class FilterFragment : Fragment(R.layout.fragment_filter) {
     private val binding by viewBinding(FragmentFilterBinding::bind, R.id.filterFragmentLayout)
 
     companion object {
-        val TAG:String = FilterFragment::class.java.simpleName
+        val TAG: String = FilterFragment::class.java.simpleName
 
         fun newInstance() = FilterFragment()
     }
@@ -31,6 +32,9 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         binding.agbrFilterBtn.setOnClickListener {
             applyFilter(ColorMatrices.AGBR)
         }
+        binding.sepiaFilterBtn.setOnClickListener {
+            applyFilter(ColorMatrices.Sepia)
+        }
     }
 
     private fun applyFilter(colorMatrix: ColorMatrices) {
@@ -40,7 +44,7 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             }
         }
         ImageEditingActivity.bitmap?.let {
-            it.setPixels(ImageEditingActivity.pixelArray, 0, it.width, 0,0, it.width, it.height)
+            it.setPixels(ImageEditingActivity.pixelArray, 0, it.width, 0, 0, it.width, it.height)
             ImageEditingActivity.imageView?.setImageBitmap(it)
         }
 
@@ -54,13 +58,13 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         val b: Int = blue(pixel)
 
         val newA: Int =
-            (a * matrix[0 * 5 + 0] + r * matrix[0 * 5 + 1] + g * matrix[0 * 5 + 2] + b * matrix[0 * 5 + 3] + matrix[0 * 5 + 4]).toInt()
+            min((a * matrix[0 * 5 + 0] + r * matrix[0 * 5 + 1] + g * matrix[0 * 5 + 2] + b * matrix[0 * 5 + 3] + matrix[0 * 5 + 4]).toInt(), 255)
         val newR: Int =
-            (a * matrix[1 * 5 + 0] + r * matrix[1 * 5 + 1] + g * matrix[1 * 5 + 2] + b * matrix[1 * 5 + 3] + matrix[1 * 5 + 4]).toInt()
+            min((a * matrix[1 * 5 + 0] + r * matrix[1 * 5 + 1] + g * matrix[1 * 5 + 2] + b * matrix[1 * 5 + 3] + matrix[1 * 5 + 4]).toInt(), 255)
         val newG: Int =
-            (a * matrix[2 * 5 + 0] + r * matrix[2 * 5 + 1] + g * matrix[2 * 5 + 2] + b * matrix[2 * 5 + 3] + matrix[2 * 5 + 4]).toInt()
+            min((a * matrix[2 * 5 + 0] + r * matrix[2 * 5 + 1] + g * matrix[2 * 5 + 2] + b * matrix[2 * 5 + 3] + matrix[2 * 5 + 4]).toInt(), 255)
         val newB: Int =
-            (a * matrix[3 * 5 + 0] + r * matrix[3 * 5 + 1] + g * matrix[3 * 5 + 2] + b * matrix[3 * 5 + 3] + matrix[3 * 5 + 4]).toInt()
+            min((a * matrix[3 * 5 + 0] + r * matrix[3 * 5 + 1] + g * matrix[3 * 5 + 2] + b * matrix[3 * 5 + 3] + matrix[3 * 5 + 4]).toInt(), 255)
 
         return argb(newA, newR, newG, newB)
     }

@@ -18,22 +18,22 @@ import com.example.imageapp3.databinding.ActivityImageSelectionBinding
 
 class ImageSelectionActivity : AppCompatActivity() {
     private val binding by viewBinding(ActivityImageSelectionBinding::bind, R.id.imageSelectionLayout)
-    private val PERMISSION_DENIED_MESSAGE: String = "Permission denied"
+
 
     private var imageUri: Uri? = null
 
     companion object {
-        private val PERMISSION_CODE = 1000
-        private val IMAGE_CAPTURE_CODE = 1001
-        private val IMAGE_PICK_CODE=1002
-        private val PERMISSION_CODE_GALLERY=1003
+        private const val PERMISSION_CODE = 1000
+        private const val IMAGE_CAPTURE_CODE = 1001
+        //private val IMAGE_PICK_CODE=1002
+        private const val PERMISSION_CODE_GALLERY=1003
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
-        getSupportActionBar()?.hide(); // hide the title bar
+        requestWindowFeature(Window.FEATURE_NO_TITLE) //will hide the title
+        supportActionBar?.hide() // hide the title bar
 
         setContentView(R.layout.activity_image_selection)
 
@@ -66,10 +66,10 @@ class ImageSelectionActivity : AppCompatActivity() {
                     val permissions= arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
                     requestPermissions(permissions, PERMISSION_CODE_GALLERY)
                 }else{
-                    pickImageFromGallery();
+                    pickImageFromGallery()
                 }
             }else{
-                pickImageFromGallery();
+                pickImageFromGallery()
             }
         }
     }
@@ -81,9 +81,6 @@ class ImageSelectionActivity : AppCompatActivity() {
             MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         )
         startActivityForResult(launchGalleryIntent, requestCode)
-        //val intent= Intent(Intent.ACTION_PICK)
-        //intent.type="image/*"
-        //startActivityForResult(intent, IMAGE_PICK_CODE)
     }
 
     private fun openCamera() {
@@ -102,10 +99,11 @@ class ImageSelectionActivity : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
+        val PERMISSION_DENIED_MESSAGE: String = getString(R.string.permissionDeniedMessage)
         //called when user presses ALLOW or DENY from Permission Request Popup
         when(requestCode) {
             PERMISSION_CODE -> {
-                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //permission from popup was granted
                     openCamera()
                 } else {
@@ -114,7 +112,7 @@ class ImageSelectionActivity : AppCompatActivity() {
                 }
             }
             PERMISSION_CODE_GALLERY -> {
-                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //permission from popup was granted
                     pickImageFromGallery()
                 } else {
@@ -141,7 +139,6 @@ class ImageSelectionActivity : AppCompatActivity() {
             val intent = Intent(this, ImageEditingActivity::class.java)
             intent.putExtra("img", imageUri.toString())
             startActivity(intent)
-
         }
     }
 }

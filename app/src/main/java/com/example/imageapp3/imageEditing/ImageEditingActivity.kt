@@ -21,33 +21,20 @@ class ImageEditingActivity : AppCompatActivity() {
         var imageUri: Uri? = null
         var bitmap: Bitmap? = null
         var imageView: ImageView? = null
-        //var bitmapOptions = BitmapFactory.Options()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
-        supportActionBar?.hide(); // hide the title bar
+        requestWindowFeature(Window.FEATURE_NO_TITLE) //will hide the title
+        supportActionBar?.hide() // hide the title bar
         setContentView(R.layout.activity_image_editing)
 
-        //bitmapOptions.inMutable = true
 
         imageView = binding.uploadedPhotoImageView
         imageUri = Uri.parse(intent.getStringExtra("img"))
         imageView?.setImageURI(imageUri)
-        bitmap = imageView?.drawable?.let {
-            //val width = it.intrinsicWidth.toInt()
-            //val height = it.intrinsicHeight.toInt()
-            ////////////////////
-            it.toBitmap()
-            ///////////////////
-        }
-        bitmap = bitmap?.let { it.copy(Bitmap.Config.ARGB_8888, true) }
-
-
-        //bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, imageUri)
-
-
+        bitmap = imageView?.drawable?.toBitmap()
+        bitmap = bitmap?.copy(Bitmap.Config.ARGB_8888, true)
 
         bitmap?.let {
             pixelArray = IntArray(it.width * it.height)
@@ -62,10 +49,6 @@ class ImageEditingActivity : AppCompatActivity() {
                 }
                 R.id.filterFragSelect -> {
                     selectScreen(FilterFragment.TAG, FilterFragment.newInstance())
-                    true
-                }
-                R.id.retouchFragSelect -> {
-                    selectScreen(RetouchFragment.TAG, RetouchFragment.newInstance())
                     true
                 }
                 R.id.scaleFragSelect -> {
@@ -88,7 +71,7 @@ class ImageEditingActivity : AppCompatActivity() {
             val active = findActiveFragment()
             val target = supportFragmentManager.findFragmentByTag(tag)
 
-            if (active != null && target != null && active != target) return@commit
+            if (active != null && target != null && active == target) return@commit
 
             if (active != null) {
                 hide(active)
