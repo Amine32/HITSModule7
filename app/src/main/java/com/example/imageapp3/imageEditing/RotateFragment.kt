@@ -11,7 +11,7 @@ class RotateFragment : Fragment(R.layout.fragment_rotate) {
     private val binding by viewBinding(FragmentRotateBinding::bind, R.id.frameLayout)
 
     companion object {
-        val TAG: String = RotateFragment::class.java.simpleName
+        val TAG = RotateFragment::class.java.simpleName
 
         fun newInstance() = RotateFragment()
 
@@ -23,6 +23,15 @@ class RotateFragment : Fragment(R.layout.fragment_rotate) {
         binding.rotateButton.setOnClickListener {
             ImageEditingActivity.imageView?.let {
                 it.rotation = it.rotation + 90F
+            }
+        }
+        binding.checkbox.setOnClickListener{
+            ImageEditingActivity.imageView?.let {
+                if(binding.degreeInput.text.toString().isNotEmpty()){
+                    var degree= binding.degreeInput.text.toString().toFloat()
+                    it.rotation=degree
+                }
+
             }
         }
     }
