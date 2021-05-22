@@ -31,7 +31,7 @@ class CanvasView @JvmOverloads constructor(
         super.onDraw(canvas)
 
         paint.style = Paint.Style.FILL
-        for(i in knotsArr.indices) {
+        for (i in knotsArr.indices) {
             canvas?.drawCircle(knotsArr[i].x, knotsArr[i].y, 10f, paint)
         }
 

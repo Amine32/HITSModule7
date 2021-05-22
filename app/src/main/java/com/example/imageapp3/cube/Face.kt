@@ -6,31 +6,31 @@ import android.graphics.Path
 
 class Face(var nodes: Array<Node>) {
     private var a = (nodes[1].y * nodes[2].z - nodes[1].z * nodes[2].y) +
-                    (nodes[0].z * nodes[2].y - nodes[0].y * nodes[2].z) +
-                    (nodes[0].y * nodes[1].z - nodes[0].z * nodes[1].y)
+            (nodes[0].z * nodes[2].y - nodes[0].y * nodes[2].z) +
+            (nodes[0].y * nodes[1].z - nodes[0].z * nodes[1].y)
 
     private var b = (nodes[1].z * nodes[2].x - nodes[1].x * nodes[2].z) +
-                    (nodes[0].x * nodes[2].z - nodes[0].z * nodes[2].x) +
-                    (nodes[0].z * nodes[1].x - nodes[0].x * nodes[1].z)
+            (nodes[0].x * nodes[2].z - nodes[0].z * nodes[2].x) +
+            (nodes[0].z * nodes[1].x - nodes[0].x * nodes[1].z)
 
     private var c = (nodes[1].x * nodes[2].y - nodes[1].y * nodes[2].x) +
-                    (nodes[0].y * nodes[2].x - nodes[0].x * nodes[2].y) +
-                    (nodes[0].x * nodes[1].y - nodes[0].y * nodes[1].x)
+            (nodes[0].y * nodes[2].x - nodes[0].x * nodes[2].y) +
+            (nodes[0].x * nodes[1].y - nodes[0].y * nodes[1].x)
 
     private var d = -(a * nodes[0].x + b * nodes[0].y + c * nodes[0].z)
 
     fun updatePlaneValues() {
         a = (nodes[1].y * nodes[2].z - nodes[1].z * nodes[2].y) +
-            (nodes[0].z * nodes[2].y - nodes[0].y * nodes[2].z) +
-            (nodes[0].y * nodes[1].z - nodes[0].z * nodes[1].y)
+                (nodes[0].z * nodes[2].y - nodes[0].y * nodes[2].z) +
+                (nodes[0].y * nodes[1].z - nodes[0].z * nodes[1].y)
 
         b = (nodes[1].z * nodes[2].x - nodes[1].x * nodes[2].z) +
-            (nodes[0].x * nodes[2].z - nodes[0].z * nodes[2].x) +
-            (nodes[0].z * nodes[1].x - nodes[0].x * nodes[1].z)
+                (nodes[0].x * nodes[2].z - nodes[0].z * nodes[2].x) +
+                (nodes[0].z * nodes[1].x - nodes[0].x * nodes[1].z)
 
         c = (nodes[1].x * nodes[2].y - nodes[1].y * nodes[2].x) +
-            (nodes[0].y * nodes[2].x - nodes[0].x * nodes[2].y) +
-            (nodes[0].x * nodes[1].y - nodes[0].y * nodes[1].x)
+                (nodes[0].y * nodes[2].x - nodes[0].x * nodes[2].y) +
+                (nodes[0].x * nodes[1].y - nodes[0].y * nodes[1].x)
 
         d = -(a * nodes[0].x + b * nodes[0].y + c * nodes[0].z)
     }
@@ -65,7 +65,7 @@ class Face(var nodes: Array<Node>) {
             nodes[1].y - nodes[0].y,
             nodes[1].z - nodes[0].z,
         )
-        when(n) {
+        when (n) {
             1 -> {
                 path.moveTo(center.x, center.y)
                 path.rLineTo(vertVector.x / 4, vertVector.y / 4)

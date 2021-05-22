@@ -22,7 +22,7 @@ class MySurfaceView(context: Context?) : SurfaceView(context), SurfaceHolder.Cal
         paint.strokeWidth = 10F
         paint.color = Color.CYAN
 
-        when(event.action) {
+        when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 curX = event.x
                 curY = event.y

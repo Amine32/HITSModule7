@@ -58,13 +58,25 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
         val b: Int = blue(pixel)
 
         val newA: Int =
-            min((a * matrix[0 * 5 + 0] + r * matrix[0 * 5 + 1] + g * matrix[0 * 5 + 2] + b * matrix[0 * 5 + 3] + matrix[0 * 5 + 4]).toInt(), 255)
+            min(
+                (a * matrix[0 * 5 + 0] + r * matrix[0 * 5 + 1] + g * matrix[0 * 5 + 2] + b * matrix[0 * 5 + 3] + matrix[0 * 5 + 4]).toInt(),
+                255
+            )
         val newR: Int =
-            min((a * matrix[1 * 5 + 0] + r * matrix[1 * 5 + 1] + g * matrix[1 * 5 + 2] + b * matrix[1 * 5 + 3] + matrix[1 * 5 + 4]).toInt(), 255)
+            min(
+                (a * matrix[1 * 5 + 0] + r * matrix[1 * 5 + 1] + g * matrix[1 * 5 + 2] + b * matrix[1 * 5 + 3] + matrix[1 * 5 + 4]).toInt(),
+                255
+            )
         val newG: Int =
-            min((a * matrix[2 * 5 + 0] + r * matrix[2 * 5 + 1] + g * matrix[2 * 5 + 2] + b * matrix[2 * 5 + 3] + matrix[2 * 5 + 4]).toInt(), 255)
+            min(
+                (a * matrix[2 * 5 + 0] + r * matrix[2 * 5 + 1] + g * matrix[2 * 5 + 2] + b * matrix[2 * 5 + 3] + matrix[2 * 5 + 4]).toInt(),
+                255
+            )
         val newB: Int =
-            min((a * matrix[3 * 5 + 0] + r * matrix[3 * 5 + 1] + g * matrix[3 * 5 + 2] + b * matrix[3 * 5 + 3] + matrix[3 * 5 + 4]).toInt(), 255)
+            min(
+                (a * matrix[3 * 5 + 0] + r * matrix[3 * 5 + 1] + g * matrix[3 * 5 + 2] + b * matrix[3 * 5 + 3] + matrix[3 * 5 + 4]).toInt(),
+                255
+            )
 
         return argb(newA, newR, newG, newB)
     }

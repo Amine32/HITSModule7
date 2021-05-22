@@ -26,7 +26,7 @@ object Cube {
     )
 
     fun draw(canvas: Canvas, paint: Paint) {
-        var numCounter = 1  
+        var numCounter = 1
         for (face in faces) {
             face.updatePlaneValues()
             if (face.isVisible()) {
@@ -35,6 +35,7 @@ object Cube {
             numCounter++
         }
     }
+
     fun rotateX(rad: Float) {
         val sin = sin(rad)
         val cos = cos(rad)

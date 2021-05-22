@@ -1,8 +1,8 @@
 package com.example.imageapp3.imageEditing
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.imageapp3.R
 import com.example.imageapp3.databinding.FragmentRotateBinding
@@ -25,11 +25,11 @@ class RotateFragment : Fragment(R.layout.fragment_rotate) {
                 it.rotation = it.rotation + 90F
             }
         }
-        binding.checkbox.setOnClickListener{
+        binding.checkbox.setOnClickListener {
             ImageEditingActivity.imageView?.let {
-                if(binding.degreeInput.text.toString().isNotEmpty()){
-                    var degree= binding.degreeInput.text.toString().toFloat()
-                    it.rotation=degree
+                if (binding.degreeInput.text.toString().isNotEmpty()) {
+                    var degree = binding.degreeInput.text.toString().toFloat()
+                    it.rotation = degree
                 }
 
             }

@@ -42,7 +42,7 @@ class ImageEditingActivity : AppCompatActivity() {
         }
 
         binding.imageEditingBottomNavView.setOnNavigationItemSelectedListener { item ->
-            when(item.itemId) {
+            when (item.itemId) {
                 R.id.rotateFragSelect -> {
                     selectScreen(RotateFragment.TAG, RotateFragment.newInstance())
                     true
@@ -85,5 +85,5 @@ class ImageEditingActivity : AppCompatActivity() {
         }
     }
 
-    private fun findActiveFragment() = supportFragmentManager.fragments.find {it.isVisible}
+    private fun findActiveFragment() = supportFragmentManager.fragments.find { it.isVisible }
 }
