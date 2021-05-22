@@ -29,4 +29,5 @@
     <string name="sharpening_threshold">Threshold</string>
     <string name="sharpening_amount">Amount</string>
     <string name="sharpening_percent">%</string>
+    <string name="create_spline">Create Spline</string>
 </resources>

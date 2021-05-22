@@ -30,4 +30,5 @@
     <string name="sharpening_amount">Значение</string>
     <string name="sharpening_percent">%</string>
     <string name="sharpening_threshold">Предел</string>
+    <string name="create_spline">Создать сплайн</string>
 </resources>
