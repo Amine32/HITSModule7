@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">ImageApp3</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="photoImageViewDesc">Photo from camera or gallery</string>
     <string name="imageSelectionString">Please select an image</string>
@@ -24,4 +23,10 @@
     <string name="scaleFragmentMenuItemString">Scale</string>
     <string name="sharpeningFragmentMenuItemString">Sharpening</string>
     <string name="sepiaFilterString">Sepia</string>
+    <string name="sharpenButtonString">Sharpen</string>
+    <string name="sharpeningRadiusString">Radius</string>
+    <string name="sharpeningDefaultValue">0</string>
+    <string name="sharpeningThresholdString">Threshold</string>
+    <string name="sharpeningAmount">Amount</string>
+    <string name="sharpeningPercentString">%</string>
 </resources>

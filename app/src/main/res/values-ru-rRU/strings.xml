@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ImageApp3</string>
+    <string name="hello_blank_fragment">Пустой фрагмент</string>
+    <string name="photoImageViewDesc">Фото из галереи или камеры</string>
+    <string name="imageSelectionString">Пожалуйста, выберите изображение</string>
+    <string name="imageSelectionFromCamera">Камера</string>
+    <string name="imageSelectionFromGallery">Галерея</string>
+    <string name="imageEditingActivitySelection">Редактирование фото</string>
+    <string name="splinesActivitySelection">Сплайны</string>
+    <string name="cubeActivitySelection">Куб</string>
+    <string name="activitySelectionString">Выберите, куда хотите перейти:</string>
+    <string name="invertedFilterString">Негатив</string>
+    <string name="grayFilterString">ЧБ</string>
+    <string name="agbrFilterString">АГБР</string>
+    <string name="rotateButtonString">Повернуть</string>
+    <string name="scalingWidthString">Ширина</string>
+    <string name="scalingHeightString">Высота</string>
+    <string name="applyScalingButtonString">ОК</string>
+    <string name="permissionDeniedMessage">Отказано в доступе</string>
+    <string name="rotateFragmentMenuItemString">Поворот</string>
+    <string name="filterFragmentMenuItemString">Фильтры</string>
+    <string name="scaleFragmentMenuItemString">Мастштаб</string>
+    <string name="sepiaFilterString">Сепия</string>
+    <string name="sharpeningFragmentMenuItemString">Маскирование</string>
+    <string name="scalingCoefficientString">Масштаб</string>
+    <string name="sharpenButtonString">Применить</string>
+    <string name="sharpeningRadiusString">Радиус</string>
+    <string name="sharpeningDefaultValue">0</string>
+    <string name="sharpeningAmount">Значение</string>
+    <string name="sharpeningPercentString">%</string>
+    <string name="sharpeningThresholdString">Предел</string>
+</resources>
