@@ -103,7 +103,7 @@ class ImageSelectionActivity : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        val PERMISSION_DENIED_MESSAGE: String = getString(R.string.permissionDeniedMessage)
+        val PERMISSION_DENIED_MESSAGE: String = getString(R.string.permission_denied_message)
         //called when user presses ALLOW or DENY from Permission Request Popup
         when (requestCode) {
             PERMISSION_CODE -> {

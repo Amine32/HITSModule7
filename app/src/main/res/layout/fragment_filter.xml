@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/invertedFilterString"
+            android:text="@string/inverted_filter"
             tools:ignore="ButtonStyle" />
 
         <Button
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/grayFilterString"
+            android:text="@string/gray_filter"
             tools:ignore="ButtonStyle" />
     </LinearLayout>
 
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/agbrFilterString"
+            android:text="@string/agbr_filter"
             tools:ignore="ButtonStyle" />
 
         <Button
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/sepiaFilterString"
+            android:text="@string/sepia_filter"
             tools:ignore="ButtonStyle" />
     </LinearLayout>
 

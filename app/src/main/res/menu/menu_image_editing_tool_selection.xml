@@ -4,19 +4,19 @@
     <item
         android:id="@+id/rotateFragSelect"
         android:icon="@android:drawable/ic_menu_rotate"
-        android:title="@string/rotateFragmentMenuItemString" />
+        android:title="@string/rotate_fragment_menu_item" />
 
     <item
         android:id="@+id/filterFragSelect"
         android:icon="@android:drawable/ic_menu_slideshow"
-        android:title="@string/filterFragmentMenuItemString" />
+        android:title="@string/filter_fragment_menu_item" />
 
     <item
         android:id="@+id/scaleFragSelect"
         android:icon="@android:drawable/ic_menu_crop"
-        android:title="@string/scaleFragmentMenuItemString" />
+        android:title="@string/scale_fragment_menu_item" />
     <item
         android:id="@+id/sharpeningFragSelect"
         android:icon="@android:drawable/ic_menu_view"
-        android:title="@string/sharpeningFragmentMenuItemString" />
+        android:title="@string/sharpening_fragment_menu_item" />
 </menu>

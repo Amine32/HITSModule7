@@ -41,7 +41,7 @@
         android:id="@+id/uploadedPhotoImageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:contentDescription="@string/photoImageViewDesc"
+        android:contentDescription="@string/photo_imageview_desc"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/fragmentContainer"
